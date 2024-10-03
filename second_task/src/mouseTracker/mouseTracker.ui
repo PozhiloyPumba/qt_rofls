@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+	<class>MouseTracker</class>
+	<widget class="QWidget" name="MouseTracker">
+		<layout class="QGridLayout" name="TextLayout">
+		<item row="1" column="0">
+		<widget class="QLabel" name="realTimePosName">
+			<property name="text">
+				<string>Realtime: </string>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignmentFlag::AlignRight | Qt::AlignmentFlag::AlignVCenter</set>
+			</property>
+		</widget>
+		</item>
+		<item row="1" column="1">
+		<widget class="QLabel" name="realTimePos">
+			<property name="text">
+				<string>HHHH</string>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignmentFlag::AlignLeft | Qt::AlignmentFlag::AlignVCenter</set>
+			</property>
+		</widget>
+		</item>
+		<item row="2" column="0">
+		<widget class="QLabel" name="onClickPosName">
+			<property name="text">
+				<string>On click: </string>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignmentFlag::AlignRight | Qt::AlignmentFlag::AlignVCenter</set>
+			</property>
+		</widget>
+		</item>
+		<item row="2" column="1">
+		<widget class="QLabel" name="onClickPos">
+			<property name="text">
+				<string>HHHH</string>
+			</property>
+			<property name="alignment">
+				<set>Qt::AlignmentFlag::AlignLeft | Qt::AlignmentFlag::AlignVCenter</set>
+			</property>
+		</widget>
+		</item>
+		</layout>
+	</widget>
+	<layoutdefault spacing="6" margin="11"/>
+	<connections/>
+</ui>
