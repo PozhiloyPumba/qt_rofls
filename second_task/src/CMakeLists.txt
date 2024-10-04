@@ -8,6 +8,7 @@ set(HEADERS
 	mainWindow/mainWindow.hpp
 	mouseTracker/mouseTracker.hpp
 	multimedia/multimedia.hpp
+	multimedia/renderTest.hpp
 )
 
 set(SOURCES
@@ -15,6 +16,7 @@ set(SOURCES
 	mainWindow/mainWindow.cpp
 	mouseTracker/mouseTracker.cpp
 	multimedia/multimedia.cpp
+	multimedia/renderTest.cpp
 )
 
 qt_add_executable(helloworld
