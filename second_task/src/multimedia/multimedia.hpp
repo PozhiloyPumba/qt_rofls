@@ -20,9 +20,17 @@ public:
     Multimedia(QWidget *parent = 0);
     virtual ~Multimedia();
 
+public slots:
+	void shapeChanged();
+	void penChanged();
+	void brushChanged();
+
 private:
 	QScopedPointer<Ui::Multimedia> ui;
 	QScopedPointer<RenderTest> renderTest;
+	QBrush textureBrush;
+
+	void resizeEvent(QResizeEvent* event) override;
 
 	using ArgType =  std::tuple<const char *, const int>;
 	constexpr static inline ArgType penStyles[] = {

@@ -19,8 +19,13 @@ set(SOURCES
 	multimedia/renderTest.cpp
 )
 
+set (RESOURCES
+	resources/resource.qrc
+)
+
 qt_add_executable(helloworld
 	MANUAL_FINALIZATION
+	${RESOURCES}
 	${SOURCES}
 	${HEADERS}
 	${UI_HEADERS}

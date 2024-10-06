@@ -19,6 +19,8 @@ MouseTracker::MouseTracker(QWidget *parent) :
 	ui->realTimePos->setAttribute(Qt::WA_TransparentForMouseEvents);
 	ui->onClickPosName->setAttribute(Qt::WA_TransparentForMouseEvents);
 	ui->onClickPos->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+	memoryPosCursor = {int(0.02 * width()), int(0.02 * height())};
 }
 
 MouseTracker::~MouseTracker()
@@ -30,7 +32,7 @@ void MouseTracker::mouseMoveEvent(QMouseEvent *event)
 	qDebug() << "mouseMoveEvent";
 	curPosCursor = event->pos();
 	ui->realTimePos->setText(QString("X: %1, Y: %2").arg(event->pos().x()).arg(event->pos().y()));
-	repaint();
+	update();
 }
 
 void MouseTracker::mousePressEvent(QMouseEvent *event) {
@@ -38,7 +40,7 @@ void MouseTracker::mousePressEvent(QMouseEvent *event) {
 	if (event->button() == Qt::LeftButton){
 		memoryPosCursor = event->pos();
 		ui->onClickPos->setText(QString("X: %1, Y: %2").arg(event->pos().x()).arg(event->pos().y()));
-		repaint();
+		update();
 	}
 }
 
