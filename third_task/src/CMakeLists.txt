@@ -7,6 +7,7 @@ set(HEADERS
 	multimedia/renderTest.hpp
 	multimedia/menu.hpp
 	multimedia/delegateField.hpp
+	polygon/polygon.hpp
 )
 
 set(SOURCES

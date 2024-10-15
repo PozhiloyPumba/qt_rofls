@@ -3,39 +3,31 @@
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
-: QMainWindow(parent), ui(new Ui::MainWindow), render(new RenderTest(this)), menu(new Menu(this)), addPolygonButton(new QPushButton(this))
+: QMainWindow(parent), ui(new Ui::MainWindow), menu(new Menu(this)), addPolygonButton(new QPushButton(this))
 {
     ui->setupUi(this);
+	render = new RenderTest(menu);
     setWindowTitle("APP_NAME");
     setWindowFlags(Qt::Window);
 	setCentralWidget(ui->CentralCoridor);
 	
-	addPolygonButton->setText("Add Polygon");
-	QSizePolicy spLeft(QSizePolicy::Preferred, QSizePolicy::Preferred);
-	spLeft.setVerticalStretch(1);
-	addPolygonButton->setSizePolicy(spLeft);
-	spLeft.setVerticalStretch(19);
-	render->setSizePolicy(spLeft);
-	spLeft.setVerticalStretch(5);
-	menu->setSizePolicy(spLeft);
-
-	ui->MainLayout->addWidget(render.get());
-	ui->MainLayout->addWidget(menu.get());
+	ui->MainLayout->addWidget(render, 0, 0, 1, 2);
+	ui->MainLayout->addWidget(menu, 0, 1, 1, 1);
 	menu->hide();
-	ui->MainLayout->addWidget(addPolygonButton.get());
+
+	addPolygonButton->setText("Add Polygon");
+	ui->MainLayout->addWidget(addPolygonButton.get(), 1, 0, 1, 2);
+
+	ui->MainLayout->setColumnStretch(0, 40);
+	ui->MainLayout->setColumnStretch(1, 10);
+	ui->MainLayout->setRowStretch(0, 99);
+	ui->MainLayout->setRowStretch(1, 1);
+
 	connect(addPolygonButton.get(), &QPushButton::clicked, 
 		[this]() {
 			menu->show();
 		}
 	);
-}
-
-void MainWindow::drawPolygon() {
-
-}
-
-void MainWindow::deletePolygon() {
-
 }
 
 MainWindow::~MainWindow()

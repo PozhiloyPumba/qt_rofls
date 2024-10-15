@@ -14,7 +14,7 @@
 			<string>Main Window</string>
 		</property>
 		<widget class="QWidget" name="CentralCoridor">
-		<layout class="QVBoxLayout" name="MainLayout"/>
+		<layout class="QGridLayout" name="MainLayout"/>
 		</widget>
 	</widget>
 

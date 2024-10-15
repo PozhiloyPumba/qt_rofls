@@ -9,11 +9,15 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QTableWidget>
+#include "polygon/polygon.hpp"
 
 #define N_MAX_COUNT 100
 
 class Menu : public QWidget {
     Q_OBJECT
+
+signals:
+	void addPoly(fig::Polygon &p);
 
 public:
     Menu(QWidget *parent = 0);
@@ -26,7 +30,8 @@ private:
 	QScopedPointer<QLabel> nSpinBoxName;
 	QScopedPointer<QTableWidget> input;
 	QScopedPointer<QPushButton> drawPolygon;
-	QScopedPointer<QPushButton> deletePolygon;
+
+	fig::Polygon createPolygon() const;
 };
 
 #endif

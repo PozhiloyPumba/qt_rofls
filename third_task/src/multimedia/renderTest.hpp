@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QPen>
 #include <QBrush>
+#include "polygon/polygon.hpp"
 
 class RenderTest : public QWidget {
     Q_OBJECT
@@ -16,7 +17,10 @@ public:
 
 	void paintEvent(QPaintEvent* event) override;
 private:
-	
+	int temp;
+	std::vector<fig::Polygon> polygons_;
+public slots:
+	void addPolygon(fig::Polygon &p);
 };
 
 #endif

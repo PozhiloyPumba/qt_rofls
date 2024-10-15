@@ -20,12 +20,12 @@ public:
     MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
 
-	void drawPolygon();
+	void addPolygon(fig::Polygon &p);
 	void deletePolygon();
 private:
     QScopedPointer<Ui::MainWindow> ui;
-	QScopedPointer<RenderTest> render;
-	QScopedPointer<Menu> menu;
+	RenderTest *render;
+	Menu *menu;
 	QScopedPointer<QPushButton> addPolygonButton;
 };
 
