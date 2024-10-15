@@ -7,13 +7,18 @@
 #include "delegateField.hpp"
 
 Menu::Menu(QWidget *parent) :
-    QWidget(parent), nSpinBox(new QSpinBox), layout(new QGridLayout(this)),
-	nSpinBoxName(new QLabel("N", nSpinBox.get())), input(new QTableWidget(3, 2)),
+    QWidget(parent), nSpinBox(new QSpinBox), layerSpinBox(new QSpinBox), layout(new QGridLayout(this)),
+	nSpinBoxName(new QLabel("N", nSpinBox.get())), 
+	layerSpinBoxName(new QLabel("layer", layerSpinBox.get())), 
+	input(new QTableWidget(3, 2)),
 	drawPolygon(new QPushButton)
 {
 	setBackgroundRole(QPalette::Base);
   	setAutoFillBackground(true);
 
+	layerSpinBox->setMinimum(0);
+	layerSpinBox->setMaximum(N_MAX_COUNT);
+	layerSpinBox->setSingleStep(1);
 	nSpinBox->setMinimum(3);
 	nSpinBox->setMaximum(N_MAX_COUNT);
 	nSpinBox->setSingleStep(1);
@@ -29,8 +34,10 @@ Menu::Menu(QWidget *parent) :
 
 	layout->addWidget(nSpinBoxName.get(), 0, 0, 1, 1, Qt::AlignVCenter);
 	layout->addWidget(nSpinBox.get(), 0, 1, 1, 1, Qt::AlignVCenter);
-	layout->addWidget(input.get(), 1, 0, 1, 2);
-	layout->addWidget(drawPolygon.get(), 2, 0, 1, 2);
+	layout->addWidget(layerSpinBoxName.get(), 1, 0, 1, 1, Qt::AlignVCenter);
+	layout->addWidget(layerSpinBox.get(), 1, 1, 1, 1, Qt::AlignVCenter);
+	layout->addWidget(input.get(), 2, 0, 1, 2);
+	layout->addWidget(drawPolygon.get(), 3, 0, 1, 2);
 
 	input->setHorizontalHeaderLabels({"x", "y"});
 	input->setShowGrid(true);
@@ -45,17 +52,25 @@ Menu::Menu(QWidget *parent) :
 			input->setRowCount(n);
 		}
 	);
-	fig::Polygon p;
-	emit addPoly(p);
+
 	connect(drawPolygon.get(), &QPushButton::clicked, 
 		[this]() {
 			fig::Polygon p = createPolygon();
-			hide();
-			input->clear();
-			emit addPoly(p);
+			if (!p.empty()) {
+				hide();
+				input->clear();
+				input->setHorizontalHeaderLabels({"x", "y"});
+				emit addPolygon(p);
+				if (deleting.has_value()) {
+					qDebug() << "delete on edit";
+					emit deletePolygon(deleting.value());
+					deleting.reset();
+				}
+			}
 		}
 	);
 }
+
 Menu::~Menu()
 {
 }
@@ -92,5 +107,24 @@ fig::Polygon Menu::createPolygon() const {
 		return p;
 
 	p.setPoints(points);
+	p.setLayer(layerSpinBox->value());
 	return p;
+}
+
+void Menu::editPolygon(const fig::Polygon &p) {
+	qDebug() << "edit";
+	nSpinBox->setValue(p.size());
+	layerSpinBox->setValue(p.getLayer());
+	input->setHorizontalHeaderLabels({"x", "y"});
+	input->setRowCount(p.size());
+
+	auto model = input->model();
+	for(int i = 0; i < p.size(); ++i) {
+		auto point = p.get_i(i);
+		model->setData(model->index(i, 0), point.x());
+		model->setData(model->index(i, 1), point.y());
+	}
+
+	deleting = p.id_;
+	show();
 }

@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QPushButton>
-#include <multimedia/renderTest.hpp>
+#include <multimedia/renderArea.hpp>
 #include <multimedia/menu.hpp>
 
 QT_BEGIN_NAMESPACE
@@ -20,11 +20,9 @@ public:
     MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
 
-	void addPolygon(fig::Polygon &p);
-	void deletePolygon();
 private:
     QScopedPointer<Ui::MainWindow> ui;
-	RenderTest *render;
+	RenderArea *render;
 	Menu *menu;
 	QScopedPointer<QPushButton> addPolygonButton;
 };

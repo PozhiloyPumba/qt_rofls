@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
 : QMainWindow(parent), ui(new Ui::MainWindow), menu(new Menu(this)), addPolygonButton(new QPushButton(this))
 {
     ui->setupUi(this);
-	render = new RenderTest(menu);
+	render = new RenderArea(menu);
     setWindowTitle("APP_NAME");
     setWindowFlags(Qt::Window);
 	setCentralWidget(ui->CentralCoridor);

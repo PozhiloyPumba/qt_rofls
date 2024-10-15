@@ -4,7 +4,7 @@ set(UI_HEADERS
 
 set(HEADERS
 	mainWindow/mainWindow.hpp
-	multimedia/renderTest.hpp
+	multimedia/renderArea.hpp
 	multimedia/menu.hpp
 	multimedia/delegateField.hpp
 	polygon/polygon.hpp
@@ -13,9 +13,10 @@ set(HEADERS
 set(SOURCES
 	main.cpp
 	mainWindow/mainWindow.cpp
-	multimedia/renderTest.cpp
+	multimedia/renderArea.cpp
 	multimedia/menu.cpp
 	multimedia/delegateField.cpp
+	polygon/polygon.cpp
 )
 
 set (RESOURCES
