@@ -19,7 +19,8 @@ private:
 	struct Edge {
 		std::weak_ptr<Vertex> begin_;
 		std::weak_ptr<Vertex> end_;
-		int value_;
+		QColor color_;
+		Edge(const QColor &c): color_(c){}
 	};
 	struct Vertex {
 		QPointF p_;
@@ -45,11 +46,12 @@ public:
 
 	void setLayer(int l) {layer_ = l;}
 	int getLayer() const { return layer_;}
-	void setPoints(std::vector<QPointF> &points);
+	void setPoints(const std::vector<std::pair<QPointF, QColor>> &points);
 	void draw(QPainter &painter, int width, int height) const;
 	bool contains(const QPoint &cursorCoord, int width, int height) const;
 	inline size_t size() const { return vertices_.size();}
 	inline QPointF get_i(int idx) const { return vertices_[idx]->p_;}
+	inline QColor get_i_color(int idx) const { return edges_[idx]->color_;}
 };
 
 }

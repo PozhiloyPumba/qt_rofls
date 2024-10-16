@@ -1,6 +1,7 @@
 #include "mainWindow.hpp"
 #include "ui_mainWindow.h"
 #include <QDebug>
+#include <QShortcut>
 
 MainWindow::MainWindow(QWidget *parent)
 : QMainWindow(parent), ui(new Ui::MainWindow), menu(new Menu(this)), addPolygonButton(new QPushButton(this))
@@ -8,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 	render = new RenderArea(menu);
     setWindowTitle("APP_NAME");
+	connect(new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_Q), this), &QShortcut::activated, this, &QCoreApplication::quit);
     setWindowFlags(Qt::Window);
 	setCentralWidget(ui->CentralCoridor);
 	

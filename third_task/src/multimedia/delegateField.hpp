@@ -4,8 +4,11 @@
 #include <QWidget>
 #include <QScopedPointer>
 #include <QItemDelegate>
+#include <QStyledItemDelegate>
 #include <QTableWidget>
-
+#include <QColor>
+#include <QPainter>
+#include <unordered_map>
 
 class DelegateField : public QItemDelegate {
     Q_OBJECT

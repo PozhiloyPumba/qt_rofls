@@ -3,13 +3,13 @@
 
 namespace fig {
 
-void Polygon::setPoints(std::vector<QPointF> &points) {
+void Polygon::setPoints(const std::vector<std::pair<QPointF, QColor>> &points) {
 	vertices_.clear();
 	edges_.clear();
 	std::for_each(points.begin(), points.end(), 
 		[this](const auto &p){
-			vertices_.push_back(std::make_shared<Vertex>(p));
-			edges_.push_back(std::make_shared<Edge>());
+			vertices_.push_back(std::make_shared<Vertex>(p.first));
+			edges_.push_back(std::make_shared<Edge>(p.second));
 		}
 	);
 	// link
@@ -23,13 +23,20 @@ void Polygon::setPoints(std::vector<QPointF> &points) {
 }
 
 void Polygon::draw(QPainter &painter, int width, int height) const {
-	std::vector<QPoint> p;
+	std::vector<std::pair<QPoint, QColor>> p;
 	std::for_each(vertices_.begin(), vertices_.end(), 
 		[&p, w = width, h = height](const auto &v){
-			p.push_back(QPoint(int(v->p_.x() * w), int(v->p_.y() * h)));
+			p.push_back({QPoint(int(v->p_.x() * w), int(v->p_.y() * h)), v->end_.lock()->color_});
 		}
 	);
-	painter.drawPolygon(p.data(), p.size());
+	size_t sz = p.size();
+	QPen pen;
+	pen.setWidth(3);
+	for(size_t i = 0; i < sz; ++i) {
+		pen.setColor(p[i].second);
+		painter.setPen(pen);
+		painter.drawLine(p[i].first, p[(i + 1) % sz].first);
+	}
 }
 
 bool Polygon::contains(const QPoint &cursorCoord, int width, int height) const {
